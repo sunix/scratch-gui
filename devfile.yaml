@@ -1,0 +1,58 @@
+apiVersion: 1.0.0
+metadata:
+  generateName: scratch-k8s-
+
+projects:
+
+  - name: scratch-gui
+    source:
+      location: 'https://github.com/sunix/scratch-gui'
+      type: git
+
+  - name: scratch-vm
+    source:
+      location: 'https://github.com/sunix/scratch-vm'
+      type: git
+
+components:
+
+  - type: chePlugin
+    id: che-incubator/typescript/latest
+    memoryLimit: 512Mi
+
+  - type: dockerimage
+    alias: nodejs
+    image: 'quay.io/eclipse/che-nodejs12-community:nightly'
+    memoryLimit: 1500Mi
+    endpoints:
+      - name: nodejs
+        port: 8601
+    mountSources: true
+    env:
+      - name: HOME
+        value: /projects
+
+  - type: dockerimage
+    alias: git
+    args:
+      - sleep
+      - infinity
+    memoryLimit: 64M
+    image: sunix/git-devtools
+    mountSources: true
+
+commands:
+
+  - name: 1. Install all required dependencies
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}'
+        type: exec
+        command: cd scratch-vm && yarn install && yarn link && cd ../scratch-gui && yarn link scratch-vm && yarn install
+        component: nodejs
+
+  - name: 2. Run the app
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/scratch-gui'
+        type: exec
+        command: yarn start
+        component: nodejs
