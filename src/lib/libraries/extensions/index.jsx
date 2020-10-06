@@ -46,6 +46,9 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+import k8sIconURL from './k8s/k8s.png';
+import k8sInsetIconURL from './k8s/k8s-small.png';
+
 export default [
     {
         name: (
@@ -317,5 +320,25 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
+    },
+    {
+        name: 'Kubernetes blocks',
+        extensionId: 'k8s',
+        collaborator: 'Sun Tan',
+        iconURL: k8sIconURL,
+        insetIconURL: k8sInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Kubernetes."
+                description="Kubernetes"
+                id="gui.extension.k8s.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        internetConnectionRequired: true,
+        bluetoothRequired: false,
+        helpLink: 'https://scratch.mit.edu/k8s'
+
     }
 ];
