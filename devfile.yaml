@@ -90,6 +90,9 @@ components:
     alias: quarkus-k8s-service-minimal
     image: registry.access.redhat.com/ubi8/ubi-minimal
 
+  - id: redhat/vscode-openshift-connector/latest
+    type: chePlugin
+
 commands:
 
   - name: 1. Install all required dependencies
